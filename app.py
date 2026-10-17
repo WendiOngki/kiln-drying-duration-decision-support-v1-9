@@ -53,14 +53,14 @@ AUDIT_N_BATCHES = 34
 
 # Observed training ranges. These only trigger warnings; they never clip inputs.
 TRAINING_RANGES = {
-    "vol_total_m3": (0.191, 17.832),
-    "total_lembar": (13, 1139),
+    "vol_total_m3": (0.191, 16.958),
+    "total_lembar": (13, 1106),
     "ket_max": (3.0, 8.0),
     "n_ketebalan": (1, 7),
-    "target_mc_at_max_thickness": (8.0, 17.0),
+    "target_mc_at_max_thickness": (8.0, 15.5),
     "kelembaban_pct": (71.09, 92.65),
-    "curah_hujan_mm": (0.02, 26.16),
-    "suhu_maks_c": (27.03, 32.92),
+    "curah_hujan_mm": (0.02, 18.99),
+    "suhu_maks_c": (27.49, 32.92),
     "suhu_min_c": (19.17, 23.64),
 }
 
