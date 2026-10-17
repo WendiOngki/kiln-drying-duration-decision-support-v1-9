@@ -761,7 +761,7 @@ with performance_tab:
     st.markdown("**Share of audit batches within an error tolerance**")
     tolerance = pd.DataFrame(
         {
-            "Tolerance": [f"±{d} days" for d in [1, 2, 3, 5, 7]],
+            "Tolerance": [f"±{d} day{'s' if d > 1 else ''}" for d in [1, 2, 3, 5, 7]],
             "Batches within tolerance (%)": [23.5, 41.2, 55.9, 85.3, 94.1],
         }
     )
