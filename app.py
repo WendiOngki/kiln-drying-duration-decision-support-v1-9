@@ -22,6 +22,7 @@ BOOTSTRAP_PATH = APP_DIR / "outputs" / "audit_bootstrap_samples.csv"
 
 THICKNESSES = [2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 8.0]
 SPECIES = ["JATI", "MAHONI"]
+SPECIES_LABELS = {"JATI": "Teak", "MAHONI": "Mahogany"}
 KILNS = ["1", "2", "3", "4", "5", "6"]
 RAINY_MONTHS = {10, 11, 12, 1, 2, 3}
 
@@ -397,7 +398,7 @@ except Exception as exc:
 st.title("Kiln-Drying Duration Decision Support")
 st.caption(
     "Decision-support prototype for estimating batch-level wood kiln-drying duration "
-    "at an anonymized wood-furniture manufacturer in Klaten Regency, Indonesia."
+    "at a wood-furniture manufacturer in Klaten Regency, Indonesia."
 )
 
 with st.sidebar:
@@ -460,8 +461,8 @@ with prediction_tab:
         if stored_weather and stored_weather.get("window_key") == weather_key:
             weather_data = stored_weather
             st.success(
-                f"Weather data are available from {weather_data['provider']} for "
-                f"{weather_data.get('location_label', 'the study location')}."
+                f"Weather data are available from {weather_data['provider']} "
+                "for the study area."
             )
             st.dataframe(weather_table(weather_data), hide_index=True, use_container_width=True)
         elif stored_weather:
@@ -499,7 +500,12 @@ with prediction_tab:
     with st.form("prediction_form"):
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            species = st.selectbox("Wood species", SPECIES)
+            species = st.selectbox(
+                "Wood species",
+                SPECIES,
+                index=SPECIES.index("MAHONI"),
+                format_func=lambda code: SPECIES_LABELS[code],
+            )
         with c2:
             kiln = st.selectbox("Kiln number", KILNS)
         with c3:
@@ -581,7 +587,7 @@ with prediction_tab:
                     "start_date": start_date.isoformat(),
                     "weather_window_end": end_date.isoformat(),
                     "weather_source": weather_data["provider"],
-                    "species": species,
+                    "species": SPECIES_LABELS[species],
                     "kiln": kiln,
                     "volume_m3": float(volume),
                     "total_boards": int(total_boards),
@@ -628,7 +634,7 @@ with model_tab:
 
     st.markdown(
         f"""
-        - Target: **kiln-drying duration (`{contract.get('prediction_target', 'durasi_hari')}`)**.
+        - Target: **kiln-drying duration (days)**.
         - Unit of analysis: **one batch**.
         - Training and evaluation batches: **{contract.get('n_batches', '—')}**.
         - Locked temporal audit: **the most recent {contract.get('n_audit', '—')} batches**.
@@ -636,5 +642,3 @@ with model_tab:
         - Deployment status: **{contract.get('deployment_status', '—')}**.
         """
     )
-    with st.expander("Model feature list"):
-        st.code("\n".join(contract.get("selected_features", [])), language=None)
