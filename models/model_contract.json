@@ -1,9 +1,9 @@
 {
   "version": "1.9.0",
-  "research_question": "Durasi untuk mencapai target MC pada ketebalan maksimum",
+  "research_question": "Kiln-drying duration until the target moisture content is reached at the maximum board thickness",
   "prediction_target": "durasi_hari",
-  "mc_semantics": "mc_akhir_pct adalah target/setpoint yang diketahui sebelum proses",
-  "mc_aggregation": "target_mc_pct dari baris ketebalan_cm maksimum; bukan max(mc_akhir_pct)",
+  "mc_semantics": "mc_akhir_pct is the final MC measured at release; the value at the thickest class is used as an operational proxy for the target MC set before drying (modelling assumption)",
+  "mc_aggregation": "target_mc_at_max_thickness = MC of the record with the maximum thickness_cm, not max(mc_akhir_pct)",
   "selected_feature_set": "target_mc_dengan_cuaca",
   "selected_model": "ExtraTrees",
   "selected_features": [
@@ -40,7 +40,7 @@
   "n_purged": 4,
   "n_audit": 34,
   "n_valid_temporal_folds": 4,
-  "weather_interpretation": "Cuaca hanya operasional jika tersedia sebagai observasi/forecast pada waktu prediksi",
+  "weather_interpretation": "Weather inputs are operational only when available as observations or forecasts at prediction time",
   "deployment_status": "candidate; prospective validation required",
   "primary_training_strategy": "original observed batches only",
   "augmentation_role": "secondary ablation only",
