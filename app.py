@@ -467,7 +467,7 @@ with st.sidebar:
 render_hero(
     "Kiln-Drying Duration Decision Support",
     "Batch-level estimate of wood kiln-drying duration for loading and downstream "
-    "scheduling at a wood-furniture manufacturer in Klaten Regency, Indonesia.",
+    "scheduling at a wood-furniture manufacturer in Central Java Regency, Indonesia.",
 )
 
 prediction_tab, performance_tab, about_tab = st.tabs(
